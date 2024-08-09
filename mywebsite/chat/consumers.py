@@ -12,9 +12,20 @@ class ChatConsumer(WebsocketConsumer):
             'message': 'You are now Connected!',
         }))
 
-    # Uncomment and implement these methods if needed
-    # def receive(self, text_data):
-    #     pass
+
+    def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        message = text_data_json['message']
+
+        print("Message from WEB" , message)
+
+        self.send(text_data = json.dumps({
+            "type": "chat",
+            "message" : message ,
+        }))
+
+
+
 
     # def disconnect(self, close_code):
     #     pass
